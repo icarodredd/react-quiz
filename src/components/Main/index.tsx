@@ -28,21 +28,40 @@ export default function Main() {
       .catch((err) => console.error(err));
   }, []);
 
+  if (state.questions[0]) console.log(state.questions[0]);
+
   return (
-    <>
-      {state.loading && (
-        <h1 className="text-white text-center text-3xl font-bold">Loading</h1>
-      )}
-      <div className="flex justify-center">
-        {state.start === false && (
-          <button
-            onClick={() => dispatch({ type: "start" })}
-            className="rounded-lg bg-white font-bold h-10 w-20"
-          >
-            Start
-          </button>
+    <div className="flex justify-center">
+      <div className="w-4/6">
+        {state.loading && (
+          <h1 className="text-white text-center text-3xl font-bold">Loading</h1>
         )}
+        <div className="flex justify-center">
+          {state.start === false && (
+            <button
+              onClick={() => dispatch({ type: "start" })}
+              className="rounded-lg bg-white font-bold h-10 w-20"
+            >
+              Start
+            </button>
+          )}
+          {state.start === true && (
+            <p className="text-white mt-10">{state.questions[0].question}</p>
+          )}
+        </div>
+        <div className="flex justify-between">
+          {state.start === true && (
+            <>
+              <button className="rounded-lg bg-white font-bold h-10 w-20">
+                Previous
+              </button>
+              <button className="rounded-lg bg-white font-bold h-10 w-20">
+                Next
+              </button>
+            </>
+          )}
+        </div>
       </div>
-    </>
+    </div>
   );
 }
